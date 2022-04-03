@@ -106,3 +106,15 @@ test('sb3 json with invalid sprite name', function (t) {
         t.end();
     });
 });
+
+test('sb3 errors listed before sb2 errors', function (t) {
+    validate(false, {'this object is': 'invalid'}, function (err, res) {
+        const keys = Object.keys(err);
+        const sb2Index = keys.indexOf('sb2Errors');
+        const sb3Index = keys.indexOf('sb3Errors');
+        t.not(sb2Index, -1);
+        t.not(sb3Index, -1);
+        t.ok(sb3Index < sb2Index);
+        t.end();
+    });
+});
