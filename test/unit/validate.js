@@ -108,7 +108,7 @@ test('sb3 json with invalid sprite name', function (t) {
 });
 
 test('sb3 errors listed before sb2 errors', function (t) {
-    validate(false, {'this object is': 'invalid'}, function (err, res) {
+    validate(false, {'this object is': 'invalid'}, function (err) {
         const keys = Object.keys(err);
         const sb2Index = keys.indexOf('sb2Errors');
         const sb3Index = keys.indexOf('sb3Errors');
