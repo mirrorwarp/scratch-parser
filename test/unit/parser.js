@@ -85,3 +85,31 @@ test('backslashes followed by b are not stripped at all', function (t) {
         t.end();
     });
 });
+
+test('supports non-standard Scratch 2 JSON', (t) => {
+    const json = `
+    {
+        // This is a line comment
+        /* This is
+                    a block comment */
+        "something": [
+            Infinity,
+            -Infinity,
+            // Trailing comma should be ignored
+            NaN,
+        ]
+    }
+    This is some extra garbage at the end that should be ignored.
+    `;
+    parse(json, (err, res) => {
+        t.equal(err, null);
+        t.same(res, {
+            something: [
+                Infinity,
+                -Infinity,
+                NaN
+            ]
+        });
+        t.end();
+    });
+});
